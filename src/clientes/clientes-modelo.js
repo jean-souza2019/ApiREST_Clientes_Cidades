@@ -1,24 +1,24 @@
-const usuariosDao = require('./usuarios-dao');
+const clientesDao = require('./clientes-dao');
 const { InvalidArgumentError } = require('../erros');
 const validacoes = require('../validacoes-comuns');
 const bcrypt = require('bcrypt');
 
-class Usuario {
-  constructor(usuario) {
-    this.id = usuario.id;
-    this.nome = usuario.nome;
-    this.email = usuario.email;
-    this.senhaHash = usuario.senhaHash;
+class Cliente {
+  constructor(cliente) {
+    this.id = cliente.id;
+    this.nome = cliente.nome;
+    this.email = cliente.email;
+    this.senhaHash = cliente.senhaHash;
 
     this.valida();
   }
 
   async adiciona() {
-    if (await Usuario.buscaPorEmail(this.email)) {
-      throw new InvalidArgumentError('O usuário já existe!');
+    if (await Cliente.buscaPorEmail(this.email)) {
+      throw new InvalidArgumentError('O cliente já existe!');
     }
 
-    return usuariosDao.adiciona(this);
+    return clientesDao.adiciona(this);
   }
 
 
@@ -26,7 +26,7 @@ class Usuario {
     validacoes.campoStringNaoNulo(senha, 'senha');
     validacoes.campoTamanhoMinimo(senha, 'senha', 8);
     validacoes.campoTamanhoMaximo(senha, 'senha', 64);
-    this.senhaHash = await Usuario.gerarSenhaHash(senha);
+    this.senhaHash = await Cliente.gerarSenhaHash(senha);
   }
 
   valida() {
@@ -36,29 +36,29 @@ class Usuario {
 
 
   async deleta() {
-    return usuariosDao.deleta(this);
+    return clientesDao.deleta(this);
   }
 
   static async buscaPorId(id) {
-    const usuario = await usuariosDao.buscaPorId(id);
-    if (!usuario) {
+    const cliente = await clientesDao.buscaPorId(id);
+    if (!cliente) {
       return null;
     }
 
-    return new Usuario(usuario);
+    return new Cliente(cliente);
   }
 
   static async buscaPorEmail(email) {
-    const usuario = await usuariosDao.buscaPorEmail(email);
-    if (!usuario) {
+    const cliente = await clientesDao.buscaPorEmail(email);
+    if (!cliente) {
       return null;
     }
 
-    return new Usuario(usuario);
+    return new Cliente(cliente);
   }
 
   static lista() {
-    return usuariosDao.lista();
+    return clientesDao.lista();
   }
 
   static gerarSenhaHash(senha) {
@@ -67,4 +67,4 @@ class Usuario {
   }
 }
 
-module.exports = Usuario;
+module.exports = Cliente;

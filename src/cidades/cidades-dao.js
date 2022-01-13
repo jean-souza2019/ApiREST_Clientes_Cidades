@@ -1,19 +1,19 @@
 const db = require('../../database');
 
 module.exports = {
-  adiciona: post => {
+  adiciona: cidade => {
     return new Promise((resolve, reject) => {
       db.run(
         `
-        INSERT INTO posts (
-          titulo, 
-          conteudo
+        INSERT INTO cidades (
+          nome, 
+          estado
         ) VALUES (?, ?)
       `,
-        [post.titulo, post.conteudo],
+        [cidade.nome, cidade.estado],
         erro => {
           if (erro) {
-            return reject('Erro ao adicionar o post!');
+            return reject('Erro ao adicionar a cidade!');
           }
 
           return resolve();
@@ -27,16 +27,16 @@ module.exports = {
       db.get(
         `
           SELECT *
-          FROM posts
+          FROM cidades
           WHERE id = ?
         `,
         [id],
-        (erro, post) => {
+        (erro, cidade) => {
           if (erro) {
-            return reject('Não foi possível encontrar o post!');
+            return reject('Não foi possível encontrar a cidade!');
           }
 
-          return resolve(post);
+          return resolve(cidade);
         }
       );
     });
@@ -44,9 +44,9 @@ module.exports = {
 
   lista: () => {
     return new Promise((resolve, reject) => {
-      db.all(`SELECT * FROM posts`, (erro, resultados) => {
+      db.all(`SELECT * FROM cidades`, (erro, resultados) => {
         if (erro) {
-          return reject('Erro ao listar os posts!');
+          return reject('Erro ao listar as cidade!');
         }
 
         return resolve(resultados);
@@ -54,17 +54,17 @@ module.exports = {
     });
   },
 
-  deleta: post => {
+  deleta: cidade => {
     return new Promise((resolve, reject) => {
       db.run(
         `
-          DELETE FROM posts
+          DELETE FROM cidades
           WHERE id = ?
         `,
-        [post.id],
+        [cidade.id],
         erro => {
           if (erro) {
-            return reject('Erro ao deletar o post');
+            return reject('Erro ao deletar a cidade');
           }
           return resolve();
         }

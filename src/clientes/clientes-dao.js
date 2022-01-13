@@ -2,20 +2,20 @@ const db = require('../../database');
 const { InternalServerError } = require('../erros');
 
 module.exports = {
-  adiciona: usuario => {
+  adiciona: cliente => {
     return new Promise((resolve, reject) => {
       db.run(
         `
-          INSERT INTO usuarios (
+          INSERT INTO clientes (
             nome,
             email,
             senhaHash
           ) VALUES (?, ?, ?)
         `,
-        [usuario.nome, usuario.email, usuario.senhaHash],
+        [cliente.nome, cliente.email, cliente.senhaHash],
         erro => {
           if (erro) {
-            reject(new InternalServerError('Erro ao adicionar o usuário!'));
+            reject(new InternalServerError('Erro ao adicionar o cliente!'));
           }
 
           return resolve();
@@ -29,16 +29,16 @@ module.exports = {
       db.get(
         `
           SELECT *
-          FROM usuarios
+          FROM clientes
           WHERE id = ?
         `,
         [id],
-        (erro, usuario) => {
+        (erro, cliente) => {
           if (erro) {
-            return reject('Não foi possível encontrar o usuário!');
+            return reject('Não foi possível encontrar o cliente!');
           }
 
-          return resolve(usuario);
+          return resolve(cliente);
         }
       );
     });
@@ -49,16 +49,16 @@ module.exports = {
       db.get(
         `
           SELECT *
-          FROM usuarios
+          FROM clientes
           WHERE email = ?
         `,
         [email],
-        (erro, usuario) => {
+        (erro, cliente) => {
           if (erro) {
-            return reject('Não foi possível encontrar o usuário!');
+            return reject('Não foi possível encontrar o cliente!');
           }
 
-          return resolve(usuario);
+          return resolve(cliente);
         }
       );
     });
@@ -68,29 +68,29 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.all(
         `
-          SELECT * FROM usuarios
+          SELECT * FROM clientes
         `,
-        (erro, usuarios) => {
+        (erro, cliente) => {
           if (erro) {
-            return reject('Erro ao listar usuários');
+            return reject('Erro ao listar clientes');
           }
-          return resolve(usuarios);
+          return resolve(cliente);
         }
       );
     });
   },
 
-  deleta: usuario => {
+  deleta: cliente => {
     return new Promise((resolve, reject) => {
       db.run(
         `
-          DELETE FROM usuarios
+          DELETE FROM clientes
           WHERE id = ?
         `,
-        [usuario.id],
+        [cliente.id],
         erro => {
           if (erro) {
-            return reject('Erro ao deletar o usuário');
+            return reject('Erro ao deletar o cliente');
           }
           return resolve();
         }

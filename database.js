@@ -1,16 +1,16 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db.sqlite');
 
-const POSTS_SCHEMA = `
-  CREATE TABLE IF NOT EXISTS posts (
+const CIDADES_SCHEMA = `
+  CREATE TABLE IF NOT EXISTS cidades (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo VARCHAR(50) NOT NULL,
-    conteudo VARCHAR(140)
+    nome VARCHAR(255) NOT NULL,
+    estado VARCHAR(255) NOT NULL
   )
   `;
 
-const USUARIOS_SCHEMA = `
-  CREATE TABLE IF NOT EXISTS usuarios (
+const CLIENTES_SCHEMA = `
+  CREATE TABLE IF NOT EXISTS clientes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome VARCHAR(40) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -20,8 +20,8 @@ const USUARIOS_SCHEMA = `
 
 db.serialize(() => {
   db.run('PRAGMA foreign_keys=ON');
-  db.run(POSTS_SCHEMA);
-  db.run(USUARIOS_SCHEMA);
+  db.run(CIDADES_SCHEMA);
+  db.run(CLIENTES_SCHEMA);
 });
 
 process.on('SIGINT', () =>

@@ -1,4 +1,4 @@
-const Usuario = require('./usuarios-modelo');
+const Cliente = require('./clientes-modelo');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
 
 module.exports = {
@@ -6,13 +6,13 @@ module.exports = {
     const { nome, email, senha } = req.body;
 
     try {
-      const usuario = new Usuario({
+      const cliente = new Cliente({
         nome,
         email
       });
 
-      await usuario.adicionaSenha(senha);
-      await usuario.adiciona();
+      await cliente.adicionaSenha(senha);
+      await cliente.adiciona();
 
       res.status(201).json();
     } catch (erro) {
@@ -27,14 +27,14 @@ module.exports = {
   },
 
   lista: async (req, res) => {
-    const usuarios = await Usuario.lista();
-    res.json(usuarios);
+    const cliente = await Cliente.lista();
+    res.json(cliente);
   },
 
   deleta: async (req, res) => {
-    const usuario = await Usuario.buscaPorId(req.params.id);
+    const cliente = await Cliente.buscaPorId(req.params.id);
     try {
-      await usuario.deleta();
+      await cliente.deleta();
       res.status(200).send();
     } catch (erro) {
       res.status(500).json({ erro: erro });
