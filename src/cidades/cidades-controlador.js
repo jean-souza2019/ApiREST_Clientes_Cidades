@@ -19,15 +19,6 @@ module.exports = {
     }
   },
 
-  lista: async (req, res) => {
-    try {
-      const cidades = await Cidade.lista();
-      res.send(cidades);
-    } catch (erro) {
-      return res.status(500).json({ erro: erro });
-    }
-  },
-  
   buscaPorNome: async (req, res) => {
     try {
       const cidades = await Cidade.buscaPorNome(req.params.nome);
@@ -45,7 +36,5 @@ module.exports = {
       return res.status(500).json({ erro: erro });
     }
   }
-
-
 
 };

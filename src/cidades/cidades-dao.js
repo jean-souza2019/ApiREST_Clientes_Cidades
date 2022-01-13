@@ -54,20 +54,10 @@ module.exports = {
           if (erro) {
             return reject('Não foi possível encontrar o estado!');
           }
-            return resolve(cidades);
+          return resolve(cidades);
         }
       );
     });
-  },
-
-  lista: () => {
-    return new Promise((resolve, reject) => {
-      db.all(`SELECT * FROM cidades`, (erro, resultados) => {
-        if (erro) {
-          return reject('Erro ao listar as cidade!');
-        }
-        return resolve(resultados);
-      });
-    });
   }
+  
 };

@@ -12,9 +12,11 @@ const CIDADES_SCHEMA = `
 const CLIENTES_SCHEMA = `
   CREATE TABLE IF NOT EXISTS clientes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR(40) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    senhaHash VARCHAR(255) NOT NULL
+    nomeCompleto VARCHAR(255) NOT NULL,
+    sexo VARCHAR(10) NOT NULL,
+    dataNascimento date NOT NULL,
+    idade INTEGER NOT NULL,
+    cidade VARCHAR(255) NOT NULL
   )
   `;
 

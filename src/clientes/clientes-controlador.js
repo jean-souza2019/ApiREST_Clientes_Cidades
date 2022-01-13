@@ -3,15 +3,16 @@ const { InvalidArgumentError, InternalServerError } = require('../erros');
 
 module.exports = {
   adiciona: async (req, res) => {
-    const { nome, email, senha } = req.body;
+    const { nomeCompleto, sexo, dataNascimento, idade, cidade } = req.body;
 
     try {
       const cliente = new Cliente({
-        nome,
-        email
+        nomeCompleto,
+        sexo,
+        dataNascimento,
+        idade,
+        cidade
       });
-
-      await cliente.adicionaSenha(senha);
       await cliente.adiciona();
 
       res.status(201).json();
@@ -26,9 +27,22 @@ module.exports = {
     }
   },
 
-  lista: async (req, res) => {
-    const cliente = await Cliente.lista();
-    res.json(cliente);
+  buscaPorNome: async (req, res) => {
+    try {
+      const cliente = await Cliente.buscaPorNome(req.params.nomeCompleto);
+      res.send(cliente);
+    } catch (erro) {
+      return res.status(500).json({ erro: erro });
+    }
+  },
+
+  buscaPorId: async (req, res) => {
+    try {
+      const cliente = await Cliente.buscaPorId(req.params.id);
+      res.send(cliente);
+    } catch (erro) {
+      return res.status(500).json({ erro: erro });
+    }
   },
 
   deleta: async (req, res) => {
@@ -40,4 +54,5 @@ module.exports = {
       res.status(500).json({ erro: erro });
     }
   }
+  
 };

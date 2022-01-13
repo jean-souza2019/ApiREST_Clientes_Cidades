@@ -7,18 +7,40 @@ module.exports = {
       db.run(
         `
           INSERT INTO clientes (
-            nome,
-            email,
-            senhaHash
-          ) VALUES (?, ?, ?)
+            nomeCompleto,
+            sexo,
+            dataNascimento,
+            idade,
+            cidade
+          ) VALUES (?, ?, ?, ?, ?)
         `,
-        [cliente.nome, cliente.email, cliente.senhaHash],
+        [cliente.nomeCompleto, cliente.sexo, cliente.dataNascimento,
+        cliente.idade, cliente.cidade],
         erro => {
           if (erro) {
             reject(new InternalServerError('Erro ao adicionar o cliente!'));
           }
 
           return resolve();
+        }
+      );
+    });
+  },
+
+  buscaPorNome: nomeCompleto => {
+    return new Promise((resolve, reject) => {
+      db.get(
+        `
+          SELECT *
+          FROM clientes
+          WHERE nomeCompleto = ?
+        `,
+        [nomeCompleto],
+        (erro, cliente) => {
+          if (erro) {
+            return reject('Não foi possível encontrar o cliente!');
+          }
+          return resolve(cliente);
         }
       );
     });
@@ -36,43 +58,6 @@ module.exports = {
         (erro, cliente) => {
           if (erro) {
             return reject('Não foi possível encontrar o cliente!');
-          }
-
-          return resolve(cliente);
-        }
-      );
-    });
-  },
-
-  buscaPorEmail: email => {
-    return new Promise((resolve, reject) => {
-      db.get(
-        `
-          SELECT *
-          FROM clientes
-          WHERE email = ?
-        `,
-        [email],
-        (erro, cliente) => {
-          if (erro) {
-            return reject('Não foi possível encontrar o cliente!');
-          }
-
-          return resolve(cliente);
-        }
-      );
-    });
-  },
-
-  lista: () => {
-    return new Promise((resolve, reject) => {
-      db.all(
-        `
-          SELECT * FROM clientes
-        `,
-        (erro, cliente) => {
-          if (erro) {
-            return reject('Erro ao listar clientes');
           }
           return resolve(cliente);
         }
@@ -97,4 +82,5 @@ module.exports = {
       );
     });
   }
+  
 };

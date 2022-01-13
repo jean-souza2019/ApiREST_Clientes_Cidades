@@ -21,7 +21,6 @@ Construção do código contemplando as seguintes operações expostas como endp
 - Consultar cliente pelo Id
 - Remover cliente
 - Alterar o nome do cliente
-- Considere o cadastro com dados básicos:
 ```
 
 Considere o cadastro com dados básicos:

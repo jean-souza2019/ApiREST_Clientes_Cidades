@@ -1,39 +1,33 @@
 const clientesDao = require('./clientes-dao');
 const { InvalidArgumentError } = require('../erros');
 const validacoes = require('../validacoes-comuns');
-const bcrypt = require('bcrypt');
 
 class Cliente {
   constructor(cliente) {
     this.id = cliente.id;
-    this.nome = cliente.nome;
-    this.email = cliente.email;
-    this.senhaHash = cliente.senhaHash;
+    this.nomeCompleto = cliente.nomeCompleto;
+    this.sexo = cliente.sexo;
+    this.dataNascimento = cliente.dataNascimento;
+    this.idade = cliente.idade;
+    this.cidade = cliente.cidade;
 
     this.valida();
   }
 
   async adiciona() {
-    if (await Cliente.buscaPorEmail(this.email)) {
+    if (await Cliente.buscaPorNome(this.nomeCompleto)) {
       throw new InvalidArgumentError('O cliente já existe!');
     }
-
     return clientesDao.adiciona(this);
   }
 
-
-  async adicionaSenha(senha) {
-    validacoes.campoStringNaoNulo(senha, 'senha');
-    validacoes.campoTamanhoMinimo(senha, 'senha', 8);
-    validacoes.campoTamanhoMaximo(senha, 'senha', 64);
-    this.senhaHash = await Cliente.gerarSenhaHash(senha);
-  }
-
   valida() {
-    validacoes.campoStringNaoNulo(this.nome, 'nome');
-    validacoes.campoStringNaoNulo(this.email, 'email');
+    validacoes.campoStringNaoNulo(this.nomeCompleto, 'nomeCompleto');
+    validacoes.campoStringNaoNulo(this.sexo, 'sexo');
+    // validacoes.campoStringNaoNulo(this.dataNascimento, 'dataNascimento');
+    // validacoes.campoStringNaoNulo(this.idade, 'idade');
+    validacoes.campoStringNaoNulo(this.cidade, 'cidade');
   }
-
 
   async deleta() {
     return clientesDao.deleta(this);
@@ -44,27 +38,13 @@ class Cliente {
     if (!cliente) {
       return null;
     }
-
     return new Cliente(cliente);
   }
 
-  static async buscaPorEmail(email) {
-    const cliente = await clientesDao.buscaPorEmail(email);
-    if (!cliente) {
-      return null;
-    }
-
-    return new Cliente(cliente);
+  static async buscaPorNome(nomeCompleto) {
+    return clientesDao.buscaPorNome(nomeCompleto);
   }
 
-  static lista() {
-    return clientesDao.lista();
-  }
-
-  static gerarSenhaHash(senha) {
-    const custoHash = 12;
-    return bcrypt.hash(senha, custoHash);
-  }
 }
 
 module.exports = Cliente;

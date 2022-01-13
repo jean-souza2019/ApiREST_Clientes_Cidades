@@ -16,13 +16,8 @@ class Cidade {
   valida() {
     validacoes.campoStringNaoNulo(this.nome, 'nome');
     validacoes.campoTamanhoMaximo(this.nome, 'nome', 255);
-
     validacoes.campoStringNaoNulo(this.estado, 'estado');
     validacoes.campoTamanhoMaximo(this.estado, 'estado', 255);
-  }
-
-  static lista() {
-    return cidadesDao.lista();
   }
 
   static async buscaPorNome(nome) {
@@ -30,7 +25,6 @@ class Cidade {
     if (!cidade) {
       return null;
     }
-
     return new Cidade(cidade);
   }
 
@@ -39,7 +33,6 @@ class Cidade {
     if (!cidade) {
       return null;
     }
-
     return cidade;
   }
 }
