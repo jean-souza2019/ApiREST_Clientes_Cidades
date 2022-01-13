@@ -27,14 +27,25 @@ module.exports = {
       return res.status(500).json({ erro: erro });
     }
   },
-
-  deleta: async (req, res) => {
-    const cidade = await Cidade.buscaPorId(req.params.id);
+  
+  buscaPorNome: async (req, res) => {
     try {
-      await cidade.deleta();
-      res.status(200).send();
+      const cidades = await Cidade.buscaPorNome(req.params.nome);
+      res.send(cidades);
     } catch (erro) {
-      res.status(500).json({ erro: erro.message });
+      return res.status(500).json({ erro: erro });
+    }
+  },
+  
+  buscaPorEstado: async (req, res) => {
+    try {
+      const cidades = await Cidade.buscaPorEstado(req.params.estado);
+      res.send(cidades);
+    } catch (erro) {
+      return res.status(500).json({ erro: erro });
     }
   }
+
+
+
 };

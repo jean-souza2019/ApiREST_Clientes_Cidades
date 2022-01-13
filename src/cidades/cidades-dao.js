@@ -22,21 +22,39 @@ module.exports = {
     });
   },
 
-  buscaPorId: id => {
+  buscaPorNome: nome => {
     return new Promise((resolve, reject) => {
       db.get(
         `
           SELECT *
           FROM cidades
-          WHERE id = ?
+          WHERE nome = ?
         `,
-        [id],
+        [nome],
         (erro, cidade) => {
           if (erro) {
             return reject('Não foi possível encontrar a cidade!');
           }
-
           return resolve(cidade);
+        }
+      );
+    });
+  },
+
+  buscaPorEstado: estado => {
+    return new Promise((resolve, reject) => {
+      db.all(
+        `
+          SELECT *
+          FROM cidades
+          WHERE estado = ?
+        `,
+        [estado],
+        (erro, cidades) => {
+          if (erro) {
+            return reject('Não foi possível encontrar o estado!');
+          }
+            return resolve(cidades);
         }
       );
     });
@@ -48,27 +66,8 @@ module.exports = {
         if (erro) {
           return reject('Erro ao listar as cidade!');
         }
-
         return resolve(resultados);
       });
-    });
-  },
-
-  deleta: cidade => {
-    return new Promise((resolve, reject) => {
-      db.run(
-        `
-          DELETE FROM cidades
-          WHERE id = ?
-        `,
-        [cidade.id],
-        erro => {
-          if (erro) {
-            return reject('Erro ao deletar a cidade');
-          }
-          return resolve();
-        }
-      );
     });
   }
 };

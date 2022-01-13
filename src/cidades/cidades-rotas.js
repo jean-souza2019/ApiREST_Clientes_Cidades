@@ -1,10 +1,9 @@
 const cidadesControlador = require('./cidades-controlador');
 
 module.exports = app => {
-  app
-    .route('/cidade')
-    .get(cidadesControlador.lista)
-    .post(cidadesControlador.adiciona);
-  
-  app.route('/cidade/:id').delete(cidadesControlador.deleta);
+  app.route('/cidades').get(cidadesControlador.lista)
+  app.route('/cidade').post(cidadesControlador.adiciona);
+  app.route('/cidade/:nome').get(cidadesControlador.buscaPorNome);
+  app.route('/estado/:estado').get(cidadesControlador.buscaPorEstado);
+
 };

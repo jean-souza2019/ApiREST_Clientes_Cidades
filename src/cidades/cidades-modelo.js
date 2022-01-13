@@ -25,18 +25,22 @@ class Cidade {
     return cidadesDao.lista();
   }
 
-
-  async deleta() {
-    return cidadesDao.deleta(this);
-  }
-
-  static async buscaPorId(id) {
-    const cidade = await cidadesDao.buscaPorId(id);
+  static async buscaPorNome(nome) {
+    const cidade = await cidadesDao.buscaPorNome(nome);
     if (!cidade) {
       return null;
     }
 
     return new Cidade(cidade);
+  }
+
+  static async buscaPorEstado(estado) {
+    const cidade = await cidadesDao.buscaPorEstado(estado);
+    if (!cidade) {
+      return null;
+    }
+
+    return cidade;
   }
 }
 
