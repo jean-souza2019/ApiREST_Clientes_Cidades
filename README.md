@@ -39,11 +39,11 @@ npm install
 ## ⚙️ Testes
 
 Requisições REST:
+
 Cidades:
 ```
 GET->localhost:3000/estado/{Nome do estado}
-GET->localhost:3000/cidade/
-GET->localhost:3000/estado/{Nome da cidade}
+GET->localhost:3000/cidade/{Nome da cidade}
 
 POST->localhost:3000/cidade/
 	(PARAMETROS: nome, estado)
@@ -56,7 +56,7 @@ GET->localhost:3000/cliente/id/{ID do cliente}
 POST->localhost:3000/cliente/
 	(PARAMETROS: nomeCompleto, sexo, dataNascimento, idade, cidade)
 PUT->localhost:3000/cliente/id/{ID do cliente}
-	(PARAMETROS: nomeCompleto, sexo, dataNascimento, idade, cidade)    
+	(PARAMETROS: nomeCompleto)    
 DELETE->localhost:3000/cliente/{ID do cliente}
 ```
 

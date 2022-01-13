@@ -29,20 +29,16 @@ module.exports = {
 
   atualiza: async (req, res) => {
     const id = req.params.id;
-    const { nomeCompleto, sexo, dataNascimento, idade, cidade } = req.body;
+    const nomeCompleto = req.body;
 
-    
+
     try {
       const cliente = new Cliente({
         id,
         nomeCompleto,
-        sexo,
-        dataNascimento,
-        idade,
-        cidade
       });
       await cliente.atualiza();
-      
+
       res.status(201).json();
     } catch (erro) {
       if (erro instanceof InvalidArgumentError) {
@@ -82,5 +78,5 @@ module.exports = {
       res.status(500).json({ erro: erro });
     }
   }
-  
+
 };

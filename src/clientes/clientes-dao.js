@@ -32,15 +32,10 @@ module.exports = {
       db.run(
         `
           UPDATE clientes
-          SET nomeCompleto = ?,
-            sexo = ?,
-            dataNascimento = ?,
-            idade = ?,
-            cidade = ?
+          SET nomeCompleto = ?
           WHERE id = ?
         `,
-        [cliente.nomeCompleto, cliente.sexo, cliente.dataNascimento,
-        cliente.idade, cliente.cidade, cliente.id],
+        [cliente.nomeCompleto, cliente.id],
         erro => {
           if (erro) {
             return reject('Erro ao deletar o cliente');
