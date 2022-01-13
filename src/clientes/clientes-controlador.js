@@ -27,6 +27,34 @@ module.exports = {
     }
   },
 
+  atualiza: async (req, res) => {
+    const id = req.params.id;
+    const { nomeCompleto, sexo, dataNascimento, idade, cidade } = req.body;
+
+    
+    try {
+      const cliente = new Cliente({
+        id,
+        nomeCompleto,
+        sexo,
+        dataNascimento,
+        idade,
+        cidade
+      });
+      await cliente.atualiza();
+      
+      res.status(201).json();
+    } catch (erro) {
+      if (erro instanceof InvalidArgumentError) {
+        res.status(422).json({ erro: erro.message });
+      } else if (erro instanceof InternalServerError) {
+        res.status(500).json({ erro: erro.message });
+      } else {
+        res.status(500).json({ erro: erro.message });
+      }
+    }
+  },
+
   buscaPorNome: async (req, res) => {
     try {
       const cliente = await Cliente.buscaPorNome(req.params.nomeCompleto);

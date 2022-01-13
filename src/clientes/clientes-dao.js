@@ -27,6 +27,30 @@ module.exports = {
     });
   },
 
+  atualiza: cliente => {
+    return new Promise((resolve, reject) => {
+      db.run(
+        `
+          UPDATE clientes
+          SET nomeCompleto = ?,
+            sexo = ?,
+            dataNascimento = ?,
+            idade = ?,
+            cidade = ?
+          WHERE id = ?
+        `,
+        [cliente.nomeCompleto, cliente.sexo, cliente.dataNascimento,
+        cliente.idade, cliente.cidade, cliente.id],
+        erro => {
+          if (erro) {
+            return reject('Erro ao deletar o cliente');
+          }
+          return resolve();
+        }
+      );
+    });
+  },
+
   buscaPorNome: nomeCompleto => {
     return new Promise((resolve, reject) => {
       db.get(
@@ -56,7 +80,7 @@ module.exports = {
         `,
         [id],
         (erro, cliente) => {
-          if (erro) {
+          if ((erro) || (!cliente)) {
             return reject('Não foi possível encontrar o cliente!');
           }
           return resolve(cliente);
@@ -82,5 +106,5 @@ module.exports = {
       );
     });
   }
-  
+
 };

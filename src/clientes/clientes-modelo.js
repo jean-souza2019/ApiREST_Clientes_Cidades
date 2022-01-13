@@ -16,9 +16,17 @@ class Cliente {
 
   async adiciona() {
     if (await Cliente.buscaPorNome(this.nomeCompleto)) {
-      throw new InvalidArgumentError('O cliente já existe!');
+      throw new InvalidArgumentError('Este cliente já existe!');
     }
     return clientesDao.adiciona(this);
+  }
+
+  async atualiza() {
+    if (!await Cliente.buscaPorId(this.id)) {
+      throw new InvalidArgumentError(`ID ${id} não existente!`);
+    }
+    // console.log("aqqui")
+    return clientesDao.atualiza(this);
   }
 
   valida() {
@@ -28,6 +36,7 @@ class Cliente {
     // validacoes.campoStringNaoNulo(this.idade, 'idade');
     validacoes.campoStringNaoNulo(this.cidade, 'cidade');
   }
+
 
   async deleta() {
     return clientesDao.deleta(this);
