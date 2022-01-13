@@ -1,12 +1,7 @@
-# API Node.JS - Interview
+# 🚀 API Node.JS - Interview
 
 API Desenvolvida em Node para atender os requesitos solicitados no Interview.
-
-## 🚀 Começando
-
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
-
-Consulte **Implantação** para saber como implantar o projeto.
+ 
 
 ### 📋 Requisitos
 
