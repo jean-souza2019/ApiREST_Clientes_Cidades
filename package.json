@@ -1,0 +1,18 @@
+{
+    "name": "ApiRest_Clientes_Cidades",
+    "version": "1.0.0",
+    "description": "Projeto API de cadastros, consultas e atualizações - Node.JS",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.2",
+        "nodemon": "^2.0.15",
+        "sqlite3": "^5.0.2"
+    }
+}
