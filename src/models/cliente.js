@@ -1,4 +1,4 @@
-const clientesDao = require('./clientes-dao');
+const clientesDao = require('../repositories/cliente');
 const { InvalidArgumentError } = require('../erros');
 const validacoes = require('../validacoes-comuns');
 
@@ -13,7 +13,6 @@ class Cliente {
 
     this.valida();
   }
-
   async adiciona() {
     if (await Cliente.buscaPorNome(this.nomeCompleto)) {
       throw new InvalidArgumentError('Este cliente já existe!');
@@ -25,7 +24,6 @@ class Cliente {
     if (!await Cliente.buscaPorId(this.id)) {
       throw new InvalidArgumentError(`ID ${id} não existente!`);
     }
-    // console.log("aqqui")
     return clientesDao.atualiza(this);
   }
 

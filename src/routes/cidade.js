@@ -1,4 +1,4 @@
-const cidadesControlador = require('./cidades-controlador');
+const cidadesControlador = require('../controllers/cidade');
 
 module.exports = app => {
   app.route('/cidade').post(cidadesControlador.adiciona);

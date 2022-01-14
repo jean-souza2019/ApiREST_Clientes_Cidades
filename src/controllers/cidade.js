@@ -1,4 +1,4 @@
-const Cidade = require('./cidades-modelo');
+const Cidade = require('../models/cidade');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
 
 module.exports = {

@@ -1,4 +1,4 @@
-const cidadesDao = require('./cidades-dao');
+const cidadesDao = require('../repositories/cidade');
 const validacoes = require('../validacoes-comuns');
 
 class Cidade {

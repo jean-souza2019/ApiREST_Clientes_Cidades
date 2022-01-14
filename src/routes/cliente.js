@@ -1,4 +1,4 @@
-const clientesControlador = require('./clientes-controlador');
+const clientesControlador = require('../controllers/cliente');
 
 module.exports = app => {
   app.route('/cliente').post(clientesControlador.adiciona);

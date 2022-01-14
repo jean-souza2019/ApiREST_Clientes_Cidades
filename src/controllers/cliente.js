@@ -1,4 +1,4 @@
-const Cliente = require('./clientes-modelo');
+const Cliente = require('../models/cliente');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
 
 module.exports = {
@@ -31,11 +31,10 @@ module.exports = {
     const id = req.params.id;
     const nomeCompleto = req.body;
 
-
     try {
       const cliente = new Cliente({
         id,
-        nomeCompleto,
+        nomeCompleto
       });
       await cliente.atualiza();
 

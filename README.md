@@ -50,7 +50,7 @@ GET->localhost:3000/cliente/nome/{Nome completo do cliente}
 GET->localhost:3000/cliente/id/{ID do cliente}
 POST->localhost:3000/cliente/
 	(PARAMETROS: nomeCompleto, sexo, dataNascimento, idade, cidade)
-PUT->localhost:3000/cliente/id/{ID do cliente}
+PUT->localhost:3000/cliente/{ID do cliente}
 	(PARAMETROS: nomeCompleto)    
 DELETE->localhost:3000/cliente/{ID do cliente}
 ```
