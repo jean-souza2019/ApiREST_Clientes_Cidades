@@ -1,7 +1,7 @@
-const cidades = require('./src/cidades');
-const clientes = require('./src/clientes');
+const cidade = require('./src/routes/cidade');
+const cliente = require('./src/routes/cliente');
 
 module.exports = app => {
-  cidades.rotas(app);
-  clientes.rotas(app);
+  cidade(app)
+  cliente(app)
 };
