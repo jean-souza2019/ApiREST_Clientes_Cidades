@@ -1,13 +1,13 @@
-const Post = require('./posts-modelo');
+const Cidade = require('./cidades-modelo');
 const { InvalidArgumentError, InternalServerError } = require('../erros');
 
 module.exports = {
   adiciona: async (req, res) => {
     try {
-      const post = new Post(req.body);
-      await post.adiciona();
+      const cidade = new Cidade(req.body);
+      await cidade.adiciona();
 
-      res.status(201).send(post);
+      res.status(201).send(cidade);
     } catch (erro) {
       if (erro instanceof InvalidArgumentError) {
         res.status(422).json({ erro: erro.message });
@@ -19,22 +19,22 @@ module.exports = {
     }
   },
 
-  lista: async (req, res) => {
+  buscaPorNome: async (req, res) => {
     try {
-      const posts = await Post.lista();
-      res.send(posts);
+      const cidades = await Cidade.buscaPorNome(req.params.nome);
+      res.send(cidades);
     } catch (erro) {
       return res.status(500).json({ erro: erro });
     }
   },
-
-  deleta: async (req, res) => {
-    const post = await Post.buscaPorId(req.params.id);
+  
+  buscaPorEstado: async (req, res) => {
     try {
-      await post.deleta();
-      res.status(200).send();
+      const cidades = await Cidade.buscaPorEstado(req.params.estado);
+      res.send(cidades);
     } catch (erro) {
-      res.status(500).json({ erro: erro.message });
+      return res.status(500).json({ erro: erro });
     }
   }
+
 };

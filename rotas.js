@@ -1,7 +1,7 @@
-const posts = require('./src/posts');
-const usuarios = require('./src/usuarios');
+const cidades = require('./src/cidades');
+const clientes = require('./src/clientes');
 
 module.exports = app => {
-  posts.rotas(app);
-  usuarios.rotas(app);
+  cidades.rotas(app);
+  clientes.rotas(app);
 };
