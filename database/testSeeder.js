@@ -5,8 +5,8 @@ const cidadeRepository = require('../src/repositories/cidade')
 run = async () => {
     try {
         const cidade = await cidadeRepository.adiciona({
-            nome: 'Criciuma',
-            estado: 'Santa Catarina'
+            nome: 'Aragua',
+            estado: 'SC'
         });
     } catch (e) {
         console.log('error on insert cidade', e);

@@ -14,7 +14,7 @@ describe('Testando as rotas da cidade', () => {
             })
     });
 
-    it('Inserindo cidade', async () => {
+    it('Consultando cidade por nome', async () => {
         await supertest(app)
             .get('/cidade/' + encodeURI('Aragua'))
             .expect(200)
