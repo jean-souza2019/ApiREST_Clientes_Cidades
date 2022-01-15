@@ -1,4 +1,4 @@
-const clientesDao = require('../repositories/cliente');
+const clienteRepository = require('../repositories/cliente');
 const { InvalidArgumentError } = require('../utils/errors');
 const validacoes = require('../utils/validations');
 
@@ -12,19 +12,20 @@ class Cliente {
     this.cidade = cliente.cidade;
 
   }
+
   async adiciona() {
     if (await Cliente.buscaPorNome(this.nomeCompleto)) {
       throw new InvalidArgumentError('Este cliente já existe!');
     }
     this.valida();
-    return clientesDao.adiciona(this);
+    return clienteRepository.adiciona(this);
   }
 
   async atualiza() {
     if (!await Cliente.buscaPorId(this.id)) {
-      throw new InvalidArgumentError(`ID ${id} não existente!`);
+      return InvalidArgumentError(`ID ${id} não existente!`);
     }
-    return clientesDao.atualiza(this);
+    return clienteRepository.atualiza(this);
   }
 
   valida() {
@@ -35,12 +36,16 @@ class Cliente {
     validacoes.campoStringNaoNulo(this.cidade, 'cidade');
   }
 
+
   async deleta() {
-    return clientesDao.deleta(this);
+    if (!await Cliente.buscaPorId(this.id)) {
+      throw new InvalidArgumentError(`ID ${id} não existente!`);
+    }
+    return clienteRepository.deleta(this);
   }
 
   static async buscaPorId(id) {
-    const cliente = await clientesDao.buscaPorId(id);
+    const cliente = await clienteRepository.buscaPorId(id);
     if (!cliente) {
       return null;
     }
@@ -48,7 +53,7 @@ class Cliente {
   }
 
   static async buscaPorNome(nomeCompleto) {
-    return clientesDao.buscaPorNome(nomeCompleto);
+    return clienteRepository.buscaPorNome(nomeCompleto);
   }
 
 }

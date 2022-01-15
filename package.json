@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "jest"
+        "seedTest": "cross-env DB_NAME='dbTest.sqlite' node database/testSeeder.js",
+        "test": "npm run seedTest && cross-env DB_NAME='dbTest.sqlite' jest --coverage && node database/deleteTestDB.js"
     },
     "license": "ISC",
     "dependencies": {
@@ -16,5 +17,8 @@
         "nodemon": "^2.0.15",
         "sqlite3": "^5.0.2",
         "supertest": "^6.2.1"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
     }
 }

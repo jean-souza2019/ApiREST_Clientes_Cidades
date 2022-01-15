@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db.sqlite');
+const dbName = process.env.DB_NAME ? process.env.DB_NAME : 'db.sqlite';
+const db = new sqlite3.Database(dbName);
 
 const CIDADES_SCHEMA = `
   CREATE TABLE IF NOT EXISTS cidades (
