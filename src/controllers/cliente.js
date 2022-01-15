@@ -1,5 +1,5 @@
 const Cliente = require('../models/cliente');
-const { InvalidArgumentError, InternalServerError } = require('../erros');
+const { InvalidArgumentError, InternalServerError } = require('../utils/errors');
 
 module.exports = {
   adiciona: async (req, res) => {
@@ -15,7 +15,7 @@ module.exports = {
       });
       await cliente.adiciona();
 
-      res.status(201).json();
+      res.status(201).send(cliente);
     } catch (erro) {
       if (erro instanceof InvalidArgumentError) {
         res.status(422).json({ erro: erro.message });
@@ -29,8 +29,7 @@ module.exports = {
 
   atualiza: async (req, res) => {
     const id = req.params.id;
-    const nomeCompleto = req.body;
-
+    const nomeCompleto = req.body.nomeCompleto;
     try {
       const cliente = new Cliente({
         id,
@@ -38,7 +37,7 @@ module.exports = {
       });
       await cliente.atualiza();
 
-      res.status(201).json();
+      res.status(201).send(cliente);
     } catch (erro) {
       if (erro instanceof InvalidArgumentError) {
         res.status(422).json({ erro: erro.message });
@@ -53,7 +52,7 @@ module.exports = {
   buscaPorNome: async (req, res) => {
     try {
       const cliente = await Cliente.buscaPorNome(req.params.nomeCompleto);
-      res.send(cliente);
+      res.status(200).send(cliente);
     } catch (erro) {
       return res.status(500).json({ erro: erro });
     }
@@ -62,7 +61,7 @@ module.exports = {
   buscaPorId: async (req, res) => {
     try {
       const cliente = await Cliente.buscaPorId(req.params.id);
-      res.send(cliente);
+      res.status(200).send(cliente);
     } catch (erro) {
       return res.status(500).json({ erro: erro });
     }
@@ -72,7 +71,7 @@ module.exports = {
     const cliente = await Cliente.buscaPorId(req.params.id);
     try {
       await cliente.deleta();
-      res.status(200).send();
+      res.status(200).send({ "id": req.params.id });
     } catch (erro) {
       res.status(500).json({ erro: erro });
     }

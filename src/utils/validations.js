@@ -1,17 +1,10 @@
-const { InvalidArgumentError } = require('./erros');
+const { InvalidArgumentError } = require('./errors');
 
 
 module.exports = {
   campoStringNaoNulo: (valor, nome) => {
-    if (typeof valor !== 'string' || valor === 0)
+    if (typeof valor !== 'string' || valor === 0 || valor === "")
       throw new InvalidArgumentError(`É necessário preencher o campo ${nome}!`);
-  },
-
-  campoTamanhoMinimo: (valor, nome, minimo) => {
-    if (valor.length < minimo)
-      throw new InvalidArgumentError(
-        `O campo ${nome} precisa ser maior que ${minimo} caracteres!`
-      );
   },
 
   campoTamanhoMaximo: (valor, nome, maximo) => {
@@ -20,4 +13,5 @@ module.exports = {
         `O campo ${nome} precisa ser menor que ${maximo} caracteres!`
       );
   }
+
 };

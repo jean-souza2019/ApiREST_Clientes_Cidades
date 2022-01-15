@@ -1,10 +1,10 @@
-const db = require('../../config/database');
-const { InternalServerError } = require('../erros');
+const db = require('../../database/config');
+const { InternalServerError } = require('../utils/errors');
 
 module.exports = {
-  adiciona: cliente => {
+  adiciona: ({ nomeCompleto, sexo, dataNascimento, idade, cidade }) => {
     return new Promise((resolve, reject) => {
-      db.run(
+      db.get(
         `
           INSERT INTO clientes (
             nomeCompleto,
@@ -12,22 +12,21 @@ module.exports = {
             dataNascimento,
             idade,
             cidade
-          ) VALUES (?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?);
         `,
-        [cliente.nomeCompleto, cliente.sexo, cliente.dataNascimento,
-        cliente.idade, cliente.cidade],
-        erro => {
+        [nomeCompleto, sexo, dataNascimento, idade, cidade],
+        (erro, row) => {
           if (erro) {
-            reject(new InternalServerError('Erro ao adicionar o cliente!'));
+            reject(new InternalServerError('Erro ao adicionar o cliente!' + erro));
           }
 
-          return resolve();
+          return resolve(row);
         }
       );
     });
   },
 
-  atualiza: cliente => {
+  atualiza: ({ nomeCompleto, id }) => {
     return new Promise((resolve, reject) => {
       db.run(
         `
@@ -35,7 +34,7 @@ module.exports = {
           SET nomeCompleto = ?
           WHERE id = ?
         `,
-        [cliente.nomeCompleto, cliente.id],
+        [nomeCompleto, id],
         erro => {
           if (erro) {
             return reject('Erro ao deletar o cliente');
@@ -74,9 +73,9 @@ module.exports = {
           WHERE id = ?
         `,
         [id],
-        (erro, cliente) => {
+        (erro, cliente) => {          
           if ((erro) || (!cliente)) {
-            return reject('Não foi possível encontrar o cliente!');
+            reject('Não foi possível encontrar o cliente!');
           }
           return resolve(cliente);
         }

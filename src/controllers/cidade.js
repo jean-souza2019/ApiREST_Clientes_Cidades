@@ -1,5 +1,5 @@
 const Cidade = require('../models/cidade');
-const { InvalidArgumentError, InternalServerError } = require('../erros');
+const { InvalidArgumentError, InternalServerError } = require('../utils/errors');
 
 module.exports = {
   adiciona: async (req, res) => {

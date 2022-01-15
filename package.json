@@ -5,14 +5,20 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "seedTest": "cross-env DB_NAME='dbTest.sqlite' node database/testSeeder.js",
+        "test": "npm run seedTest && cross-env DB_NAME='dbTest.sqlite' jest --coverage && node database/deleteTestDB.js"
     },
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^5.0.1",
         "body-parser": "^1.19.0",
         "express": "^4.17.2",
+        "jest": "^27.4.7",
         "nodemon": "^2.0.15",
-        "sqlite3": "^5.0.2"
+        "sqlite3": "^5.0.2",
+        "supertest": "^6.2.1"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
     }
 }
