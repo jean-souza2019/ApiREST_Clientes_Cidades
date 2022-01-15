@@ -1,22 +1,23 @@
-const db = require('../../database');
+const db = require('../../database/config');
+const { InternalServerError } = require('../utils/errors');
 
 module.exports = {
-  adiciona: cidade => {
+  adiciona: ({ nome, estado }) => {
     return new Promise((resolve, reject) => {
-      db.run(
+      db.get(
         `
         INSERT INTO cidades (
           nome, 
           estado
-        ) VALUES (?, ?)
+        ) VALUES (?, ?);
       `,
-        [cidade.nome, cidade.estado],
-        erro => {
+        [nome, estado],
+        (erro, row) => {
           if (erro) {
-            return reject('Erro ao adicionar a cidade!');
+            return reject(new InternalServerError('Erro ao adicionar o cidade!' + erro));
           }
 
-          return resolve();
+          return resolve(row);
         }
       );
     });

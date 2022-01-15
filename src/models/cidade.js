@@ -1,5 +1,5 @@
-const cidadesDao = require('../repositories/cidade');
-const validacoes = require('../validacoes-comuns');
+const cidadeRepository = require('../repositories/cidade');
+const validacoes = require('../utils/validations');
 
 class Cidade {
   constructor(cidade) {
@@ -10,7 +10,7 @@ class Cidade {
   }
 
   adiciona() {
-    return cidadesDao.adiciona(this);
+    return cidadeRepository.adiciona(this);
   }
 
   valida() {
@@ -21,7 +21,7 @@ class Cidade {
   }
 
   static async buscaPorNome(nome) {
-    const cidade = await cidadesDao.buscaPorNome(nome);
+    const cidade = await cidadeRepository.buscaPorNome(nome);
     if (!cidade) {
       return null;
     }
@@ -29,7 +29,7 @@ class Cidade {
   }
 
   static async buscaPorEstado(estado) {
-    const cidade = await cidadesDao.buscaPorEstado(estado);
+    const cidade = await cidadeRepository.buscaPorEstado(estado);
     if (!cidade) {
       return null;
     }
