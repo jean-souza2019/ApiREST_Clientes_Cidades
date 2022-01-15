@@ -1,5 +1,5 @@
 const db = require('../../config/database');
-const { InternalServerError } = require('../erros');
+const { InternalServerError } = require('../utils/errors');
 
 module.exports = {
   adiciona: cliente => {

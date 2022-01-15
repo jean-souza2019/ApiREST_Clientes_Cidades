@@ -1,6 +1,6 @@
 const clientesDao = require('../repositories/cliente');
-const { InvalidArgumentError } = require('../erros');
-const validacoes = require('../validacoes-comuns');
+const { InvalidArgumentError } = require('../utils/errors');
+const validacoes = require('../utils/validations');
 
 class Cliente {
   constructor(cliente) {
@@ -11,12 +11,12 @@ class Cliente {
     this.idade = cliente.idade;
     this.cidade = cliente.cidade;
 
-    this.valida();
   }
   async adiciona() {
     if (await Cliente.buscaPorNome(this.nomeCompleto)) {
       throw new InvalidArgumentError('Este cliente já existe!');
     }
+    this.valida();
     return clientesDao.adiciona(this);
   }
 
@@ -30,11 +30,10 @@ class Cliente {
   valida() {
     validacoes.campoStringNaoNulo(this.nomeCompleto, 'nomeCompleto');
     validacoes.campoStringNaoNulo(this.sexo, 'sexo');
-    // validacoes.campoStringNaoNulo(this.dataNascimento, 'dataNascimento');
-    // validacoes.campoStringNaoNulo(this.idade, 'idade');
+    validacoes.campoStringNaoNulo(this.dataNascimento, 'dataNascimento');
+    validacoes.campoStringNaoNulo(this.idade, 'idade');
     validacoes.campoStringNaoNulo(this.cidade, 'cidade');
   }
-
 
   async deleta() {
     return clientesDao.deleta(this);

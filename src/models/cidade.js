@@ -1,5 +1,5 @@
 const cidadesDao = require('../repositories/cidade');
-const validacoes = require('../validacoes-comuns');
+const validacoes = require('../utils/validations');
 
 class Cidade {
   constructor(cidade) {

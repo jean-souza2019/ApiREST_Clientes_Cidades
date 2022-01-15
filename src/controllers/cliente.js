@@ -1,5 +1,5 @@
 const Cliente = require('../models/cliente');
-const { InvalidArgumentError, InternalServerError } = require('../erros');
+const { InvalidArgumentError, InternalServerError } = require('../utils/errors');
 
 module.exports = {
   adiciona: async (req, res) => {
@@ -29,8 +29,8 @@ module.exports = {
 
   atualiza: async (req, res) => {
     const id = req.params.id;
-    const nomeCompleto = req.body;
-
+    const nomeCompleto = req.body.nomeCompleto;
+    
     try {
       const cliente = new Cliente({
         id,
