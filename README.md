@@ -33,6 +33,10 @@ npm install
 
 ## ⚙️ Testes
 
+```
+npm run test
+```
+
 Requisições REST:
 
 Cidades:
