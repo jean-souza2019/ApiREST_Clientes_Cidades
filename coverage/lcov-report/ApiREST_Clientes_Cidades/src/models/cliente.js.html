@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">13.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/28</span>
+                <span class='fraction'>4/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">13.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/28</span>
+                <span class='fraction'>4/30</span>
             </div>
         
             
@@ -118,7 +118,12 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,28 +138,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,6 +197,7 @@ class Cliente {
 <span class="cstat-no" title="statement not covered" >    this.cidade = cliente.cidade;</span>
 &nbsp;
   }
+&nbsp;
 <span class="fstat-no" title="function not covered" >  as</span>ync adiciona() {
 <span class="cstat-no" title="statement not covered" >    if (await Cliente.buscaPorNome(this.nomeCompleto)) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new InvalidArgumentError('Este cliente já existe!');</span>
@@ -197,7 +208,7 @@ class Cliente {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  as</span>ync atualiza() {
 <span class="cstat-no" title="statement not covered" >    if (!await Cliente.buscaPorId(this.id)) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new InvalidArgumentError(`ID ${id} não existente!`);</span>
+<span class="cstat-no" title="statement not covered" >      return InvalidArgumentError(`ID ${id} não existente!`);</span>
     }
 <span class="cstat-no" title="statement not covered" >    return clienteRepository.atualiza(this);</span>
   }
@@ -210,7 +221,11 @@ class Cliente {
 <span class="cstat-no" title="statement not covered" >    validacoes.campoStringNaoNulo(this.cidade, 'cidade');</span>
   }
 &nbsp;
+&nbsp;
 <span class="fstat-no" title="function not covered" >  as</span>ync deleta() {
+<span class="cstat-no" title="statement not covered" >    if (!await Cliente.buscaPorId(this.id)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new InvalidArgumentError(`ID ${id} não existente!`);</span>
+    }
 <span class="cstat-no" title="statement not covered" >    return clienteRepository.deleta(this);</span>
   }
 &nbsp;
@@ -235,7 +250,7 @@ module.exports = Cliente;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jan 15 2022 12:44:51 GMT-0300 (Horário Padrão de Brasília)
+                at Sat Jan 15 2022 13:38:54 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

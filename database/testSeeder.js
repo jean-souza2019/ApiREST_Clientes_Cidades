@@ -8,7 +8,6 @@ run = async () => {
             nome: 'Criciuma',
             estado: 'Santa Catarina'
         });
-        console.log('cidade', cidade)
     } catch (e) {
         console.log('error on insert cidade', e);
     }
@@ -21,7 +20,6 @@ run = async () => {
             idade: 22,
             cidade: 'Passo fundo'
         });
-        console.log('cliente', cliente)
     } catch (e) {
         console.log('error on insert cliente', e);
     }
